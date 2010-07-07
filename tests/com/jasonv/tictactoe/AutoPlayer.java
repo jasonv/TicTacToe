@@ -56,4 +56,5 @@ public class AutoPlayer extends TestCase {
 		}
 		return true;	
 	}
+
 }
