@@ -106,6 +106,10 @@ public class Board
 		{
 			return true;
 		}
+		if(board[6]==player && board[7]==player && board[8]==player)
+		{
+			return true;
+		}
 
 		// Up and Down
 		if(board[0]==player && board[3]==player && board[6]==player)

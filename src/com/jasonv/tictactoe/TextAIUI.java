@@ -19,6 +19,7 @@ public class TextAIUI
 
 	    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 	    Board b;
+	    Ai ai;
 	    char player;
 		System.out.println("---------------------------------------------");
 		System.out.println("Tic Tac Toe");
@@ -33,46 +34,52 @@ public class TextAIUI
 	    while(true)
 	    {
 		    b = new Board();
+		    ai = new AiWikipedia();
 		    player = 'X';
 		    while(true)
 		    {
 		    	printBoard(b.getBoardArray());
 			    try {
-				    String command = null;
-				    System.out.print(player + ">");
-	 		        command = br.readLine();
+				    String validCommands[] = {"1","2","3","4","5","6","7","8","9","Exit","exit"};
+			    	String command = null;
+				    boolean commandIsValid = false;
+				    while(commandIsValid==false)
+				    {
+					    System.out.print("Enter a number(1-9) or 'exit' to quit. \n" + player + ">");
+		 		        command = br.readLine();
+		 		        for(String validCommand:validCommands)
+		 		        {
+		 		        	if(validCommand.equals(command))
+		 		        	{
+		 		        		commandIsValid=true;
+		 		        		break;
+		 		        	}
+		 		        }
+				    }
 
 			        if(command.equalsIgnoreCase("Exit"))
 			        {
 			        	System.out.println("Done.");
 			        	System.exit(0);
 			        }
-			        else
-			        {
-			        	int location = Integer.parseInt(command);
-			        	b.place('X',location);
-			        	b.place('O',aiDumb(b.getBoardArray()));
-			        }
-			        String gameStatus = b.getGameStatus();
+
+			        String gameStatus = "";
+			        int location = Integer.parseInt(command);
+		        	b.place('X',location);
+			        gameStatus = b.getGameStatus();
 			        if(!gameStatus.equals(""))
 			        {
-						System.out.println("---------------------------------------------");
-			        	System.out.println(gameStatus);
-				    	printBoard(b.getBoardArray());
-						System.out.println("---------------------------------------------");
+			        	printResult(gameStatus, b.getBoardArray());
 				    	break;
-			        }
-			        else
+			        }			        
+		        	b.place('O',ai.makeMove('O',b.getBoardArray()));
+			        gameStatus = b.getGameStatus();
+			        if(!gameStatus.equals(""))
 			        {
-//				    	if(player=='X')
-//				    	{
-//				    		player='O';
-//				    	}
-//				    	else
-//				    	{
-//				    		player='X';
-//				    	}		        	
-			        }
+			        	printResult(gameStatus, b.getBoardArray());
+				    	break;
+			        }			        
+			        
 			    } catch (BoardException e) {
 			    	System.out.println(e.getMessage());
 			    } catch (IOException ioe) {
@@ -93,17 +100,11 @@ public class TextAIUI
 		System.out.println(b[6] + "|" + b[7] + "|" + b[8]);
 	}
 	
-	private static int aiDumb(char[] boardArray)
+	private static void printResult(String gameStatus,char[] boardArray)
 	{
-		int i=1;
-		for(char space:boardArray)
-		{
-			if(space==' ')
-			{
-				return i;
-			}
-			i++;
-		}
-		return -1;
+		System.out.println("---------------------------------------------");
+       	System.out.println(gameStatus);
+    	printBoard(boardArray);
+		System.out.println("---------------------------------------------");
 	}
 }
