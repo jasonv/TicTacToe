@@ -9,110 +9,141 @@ public class TestForWinOrDraw extends TestCase
 	public void test01_aiDumb()
 	{
 		Ai ai = new AiDumb();
-		assertEquals(0,6561-aiStarts(ai) + 59049-aiFolows(ai));
+		checkForZeroLosses(ai);
 	}
 
 	public void test02_aiBestSquares()
 	{
 		Ai ai = new AiBestSquares();
-		assertEquals(0,6561-aiStarts(ai) + 59049-aiFolows(ai));
+		checkForZeroLosses(ai);
 	}
 
 	public void test03_aiBestSquaresBlockWin()
 	{
 		Ai ai = new AiBestSquaresBlockWin();
-		assertEquals(0,6561-aiStarts(ai) + 59049-aiFolows(ai));
+		checkForZeroLosses(ai);
 	}
 
 	public void test04_aiBestSquaresTakeWinBlockWin()
 	{
 		Ai ai = new AiBestSquaresTakeWinBlockWin();
-		assertEquals(0,6561-aiStarts(ai) + 59049-aiFolows(ai));
+		checkForZeroLosses(ai);
 	}
 	
 	public void test05_aiWikipediaSlow()
 	{
 		Ai ai = new AiWikipediaSlow();
-		int a = aiStarts(ai);
-		int b = aiFolows(ai);
-		assertEquals(0,6561-a + 59049-b);
+		checkForZeroLosses(ai);
 	}
 
 	public void test06_aiMiniMax()
 	{
 		Ai ai = new AiMiniMax1();
-		int a = aiStarts(ai);
-		int b = aiFolows(ai);
-		assertEquals(0,6561-a + 59049-b);
+		checkForZeroLosses(ai);
 	}
 	
 	public void test07_aiWikipedia()
 	{
 		Ai ai = new AiWikipedia();
-		int a = aiStarts(ai);
-		int b = aiFolows(ai);
-		assertEquals(0,6561-a + 59049-b);
+		checkForZeroLosses(ai);
 	}
 	
-	public int aiStarts(Ai ai)
+	public void checkForZeroLosses(Ai ai)
 	{
+		int aiMakes1stMoveLosses = 6561 - aiMakes1stMove(ai);
+		int aiMakes2ndMoveLosses = 59049 - aiMakes2ndMove(ai);
+		int totalLosses = aiMakes1stMoveLosses + aiMakes2ndMoveLosses; 
+		assertEquals(0,totalLosses);		
+	}
+	
+	public int aiMakes1stMove(Ai ai)
+	{
+		System.out.println("A.I. Makes the 1st move.");
+		System.out.println("()     = 2nd move location.");
+		System.out.println("[]     = 4th move location. ");
+		System.out.println("||     = 6th move.");
+		System.out.println(". or 1 = 8th move.");
+
 		int totalCombinations = 0;
 		int goodCombinations = 0;
-		int m[] = {0,0,0,0};
-		for(m[0]=1;m[0]<=9;m[0]++)
+		int move[] = {0,0,0,0};
+		for(move[0]=1;move[0]<=9;move[0]++)
 		{
-			System.out.println("aiStarts: " + m[0]);
-			for(m[1]=1;m[1]<=9;m[1]++)
+			System.out.print("\n\n(" + move[0] + ")");
+			for(move[1]=1;move[1]<=9;move[1]++)
 			{
-				for(m[2]=1;m[2]<=9;m[2]++)
+				System.out.print("\n[" + move[1] + "]");
+				for(move[2]=1;move[2]<=9;move[2]++)
 				{
-					for(m[3]=1;m[3]<=9;m[3]++)
+					System.out.print("|");
+					for(move[3]=1;move[3]<=9;move[3]++)
 					{
 						totalCombinations++;
-						String outcome = play(m,ai);
+						String outcome = play(move,ai);
 						if(outcome.equals("O has won! or It's a Tie! or Invalid Sequence."))
 						{
+							System.out.print(".");
 							goodCombinations++;
 						}
 						else
 						{
-							System.out.println(m[0] + " " + m[1] + " " + m[2] + " " + m[3] + " " + " " + outcome);
+							System.out.print("X");
+							//System.out.println(m[0] + " " + m[1] + " " + m[2] + " " + m[3] + " " + m[4] + " " + outcome);
 						}
-						//System.out.println(">" + m[0] + " " + m[1] + " " + m[2] + " " + m[3] + " " + outcome);
 					}	
 				}		
 			}
 		}
+		System.out.println();
 		return goodCombinations;
 	}
 	
-	public int aiFolows(Ai ai)
+	public int aiMakes2ndMove(Ai ai)
 	{
+		System.out.println("A.I. Makes the 2nd move.");
+		System.out.println("()            = 1nd move location.");
+		System.out.println("[]            = 3rd move location. ");
+		System.out.println("||            = 5th move.");
+		System.out.println("~=0,1,2,...,9 = 7th and 9th move. (Number is number of losses)");
+
 		int totalCombinations = 0;
 		int goodCombinations = 0;
-		int m[] = {0,0,0,0,0};
-		for(m[0]=1;m[0]<=9;m[0]++)
+		int move[] = {0,0,0,0,0};
+		for(move[0]=1;move[0]<=9;move[0]++)
 		{
-			System.out.println("aiFolows: " + m[0]);
-			for(m[1]=1;m[1]<=9;m[1]++)
+			System.out.print("\n\n(" + move[0] + ")");
+			for(move[1]=1;move[1]<=9;move[1]++)
 			{
-				for(m[2]=1;m[2]<=9;m[2]++)
+				System.out.print("\n[" + move[1] + "]");
+				for(move[2]=1;move[2]<=9;move[2]++)
 				{
-					for(m[3]=1;m[3]<=9;m[3]++)
+					System.out.print("|");
+					for(move[3]=1;move[3]<=9;move[3]++)
 					{
-						for(m[4]=1;m[4]<=9;m[4]++)
+						int losses=0;
+						for(move[4]=1;move[4]<=9;move[4]++)
 						{
 							totalCombinations++;
-							String outcome = play(m,ai);
+							String outcome = play(move,ai);
 							if(outcome.equals("O has won! or It's a Tie! or Invalid Sequence."))
 							{
 								goodCombinations++;
 							}
 							else
 							{
-								System.out.println(m[0] + " " + m[1] + " " + m[2] + " " + m[3] + " " + m[4] + " " + outcome);
+								losses++;
+								//System.out.println(m[0] + " " + m[1] + " " + m[2] + " " + m[3] + " " + outcome);
 							}
 						}
+						if(losses==0)
+						{
+							System.out.print("~");
+						}
+						else
+						{
+							System.out.print(losses);							
+						}
+						
 					}	
 				}		
 			}
