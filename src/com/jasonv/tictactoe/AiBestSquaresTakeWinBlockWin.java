@@ -39,7 +39,7 @@ public class AiBestSquaresTakeWinBlockWin extends Ai {
 			}
 			if(playerMarkerCount==2 && openSquare > 0)
 			{
-				System.out.println(String.copyValueOf(boardArray) + "" + openSquare);
+				//System.out.println(String.copyValueOf(boardArray) + "" + openSquare);
 				return openSquare;
 			}
 		}
@@ -62,7 +62,7 @@ public class AiBestSquaresTakeWinBlockWin extends Ai {
 			}
 			if(opponentMarkerCount==2 && openSquare > 0)
 			{
-				System.out.println(String.copyValueOf(boardArray) + "" + openSquare);
+				//System.out.println(String.copyValueOf(boardArray) + "" + openSquare);
 				return openSquare;
 			}
 		}
@@ -74,7 +74,7 @@ public class AiBestSquaresTakeWinBlockWin extends Ai {
 			if(boardArray[square-1]==' ')
 			{
 				
-				System.out.println(String.copyValueOf(boardArray) + "" + square);
+				//System.out.println(String.copyValueOf(boardArray) + "" + square);
 				return square;
 			}
 		}
