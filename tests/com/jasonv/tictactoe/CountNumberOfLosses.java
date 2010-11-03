@@ -117,7 +117,7 @@ public class CountNumberOfLosses extends TestCase
 	public int aiMakes2ndMove(Ai ai,BufferedWriter out) throws IOException
 	{
 		out.write("A.I. Makes the 2nd move.\n");
-		out.write("()            = 1nd move location.\n");
+		out.write("()            = 1st move location.\n");
 		out.write("[]            = 3rd move location.\n");
 		out.write("||            = 5th move.\n");
 		out.write("~=0,1,2,...,9 = 7th and 9th move. (Number is number of losses)\n");

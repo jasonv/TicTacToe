@@ -104,7 +104,7 @@ A.I. Makes the 1st move.
 [8]|.........|.........|.........|.........|.........|.........|XXXXXXXXX|.........|.........
 [9]|.........|.........|.........|.........|.........|.........|.........|.........|.........
 A.I. Makes the 2nd move.
-()            = 1nd move location.
+()            = 1st move location.
 []            = 3rd move location.
 ||            = 5th move.
 ~=0,1,2,...,9 = 7th and 9th move. (Number is number of losses)
