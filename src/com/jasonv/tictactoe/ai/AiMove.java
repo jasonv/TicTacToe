@@ -1,4 +1,4 @@
-package com.jasonv.tictactoe;
+package com.jasonv.tictactoe.ai;
 
 public class AiMove extends Exception 
 {

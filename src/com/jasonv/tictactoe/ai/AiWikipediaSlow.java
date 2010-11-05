@@ -1,4 +1,5 @@
-package com.jasonv.tictactoe;
+package com.jasonv.tictactoe.ai;
+
 
 /**
    A partial implementation from the wikipedia rules.

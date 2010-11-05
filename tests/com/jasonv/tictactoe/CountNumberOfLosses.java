@@ -4,6 +4,14 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+
+import com.jasonv.tictactoe.ai.Ai;
+import com.jasonv.tictactoe.ai.AiBestSquares;
+import com.jasonv.tictactoe.ai.AiBestSquaresBlockWin;
+import com.jasonv.tictactoe.ai.AiBestSquaresTakeWinBlockWin;
+import com.jasonv.tictactoe.ai.AiDumb;
+import com.jasonv.tictactoe.ai.AiWikipedia;
+
 import junit.framework.TestCase;
 
 public class CountNumberOfLosses extends TestCase 

@@ -1,4 +1,4 @@
-package com.jasonv.tictactoe;
+package com.jasonv.tictactoe.ai;
 
 public abstract class Ai 
 {

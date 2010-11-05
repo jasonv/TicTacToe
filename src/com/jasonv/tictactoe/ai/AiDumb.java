@@ -1,4 +1,5 @@
-package com.jasonv.tictactoe;
+package com.jasonv.tictactoe.ai;
+
 
 public class AiDumb extends Ai {
 	public int makeMove(char player, char[] boardArray)

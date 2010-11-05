@@ -1,8 +1,15 @@
-package com.jasonv.tictactoe;
+package com.jasonv.tictactoe.ai;
 
-public class AiBestSquaresBlockWin extends Ai {
+
+public class AiBestSquaresTakeWinBlockWin extends Ai {
 	public int makeMove(char player, char[] boardArray)
 	{
+		int winLines[][] = {
+				{1,2,3},{4,5,6},{7,8,9},
+				{1,4,7},{2,5,8},{3,6,9},
+				{1,5,9},{3,5,7}
+		};		
+
 		// Get opposite player
 		char opponentMarker = ' ';
 		if(player=='X')
@@ -13,13 +20,32 @@ public class AiBestSquaresBlockWin extends Ai {
 		{
 			opponentMarker='X';			
 		}
+	
+		
+		// Take a win
+		for(int winLine[]:winLines)
+		{
+			int playerMarkerCount = 0;
+			int openSquare = -1;
+			for(int square:winLine)
+			{
+				if(boardArray[square-1]==player)
+				{
+					playerMarkerCount++;
+				}
+				if(boardArray[square-1]==' ')
+				{
+					openSquare = square;
+				}
+			}
+			if(playerMarkerCount==2 && openSquare > 0)
+			{
+				//System.out.println(String.copyValueOf(boardArray) + "" + openSquare);
+				return openSquare;
+			}
+		}
 		
 		// Block you opponents win on the next move
-		int winLines[][] = {
-				{1,2,3},{4,5,6},{7,8,9},
-				{1,4,7},{2,5,8},{3,6,9},
-				{1,5,9},{3,5,7}
-		};		
 		for(int winLine[]:winLines)
 		{
 			int opponentMarkerCount = 0;

@@ -4,6 +4,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import com.jasonv.tictactoe.ai.Ai;
+import com.jasonv.tictactoe.ai.AiWikipedia;
+
 /**
  * @author dell
  *

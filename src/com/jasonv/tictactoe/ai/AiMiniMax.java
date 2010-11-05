@@ -1,4 +1,6 @@
-package com.jasonv.tictactoe;
+package com.jasonv.tictactoe.ai;
+
+
 public class AiMiniMax extends Ai 
 {
 	int indent = 0;
