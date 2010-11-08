@@ -2,7 +2,7 @@ package com.jasonv.tictactoe.ai;
 
 
 /**
-   A partial implementation from the wikipedia rules.
+   An implementation from the wikipedia rules.
    http://en.wikipedia.org/wiki/Tic-tac-toe#Strategy
    1) Win: If you have two in a row, play the third to get three in a row.
    2) Block: If the opponent has two in a row, play the third to block them.
