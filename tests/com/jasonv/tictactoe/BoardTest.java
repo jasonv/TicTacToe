@@ -136,5 +136,16 @@ public class BoardTest extends TestCase
 		}
 	}
 	
+	public void testBoard12ShouldDeepCopy()
+	{
+		Board b1 = new Board();
+		b1.place('X',5);
+		Board b2 = new Board(b1);
+		b2.place('O',1);
+		assertEquals("   | X |   ",b1.getBoardLayout());
+		assertEquals("O  | X |   ",b2.getBoardLayout());
+		
+	}
+	
 
 }

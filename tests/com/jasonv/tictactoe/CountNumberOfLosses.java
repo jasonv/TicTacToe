@@ -10,6 +10,7 @@ import com.jasonv.tictactoe.ai.AiBestSquares;
 import com.jasonv.tictactoe.ai.AiBestSquaresBlockWin;
 import com.jasonv.tictactoe.ai.AiBestSquaresTakeWinBlockWin;
 import com.jasonv.tictactoe.ai.AiDumb;
+import com.jasonv.tictactoe.ai.AiMiniMax;
 import com.jasonv.tictactoe.ai.AiWikipedia;
 
 import junit.framework.TestCase;
@@ -47,24 +48,18 @@ public class CountNumberOfLosses extends TestCase
 		checkForExpectedNumberOfLosses(ai,"05AiWikipedia",0);
 	}
 	
-//	public void test06_aiWikipediaSlow()
-//	{
-//		Ai ai = new AiWikipediaSlow();
-//		checkForExpectedNumberOfLosses(ai,"06AiWikipediaSlow",0);
-//	}
-//
-//	public void test07_aiMiniMax()
-//	{
-//		Ai ai = new AiMiniMax1();
-//		checkForExpectedNumberOfLosses(ai,"07AiMiniMax1",0);
-//	}
+	public void test06_aiMiniMax()
+	{
+		Ai ai = new AiMiniMax();
+		checkForExpectedNumberOfLosses(ai,"06AiMiniMax",0);
+	}
 	
 
 	
 	public void checkForExpectedNumberOfLosses(Ai ai,String aiName,int expectedNumberOfLosses)
 	{
 		FileWriter fstream;
-		BufferedWriter out;
+		BufferedWriter out = null;
 		int totalLosses = 0;
 		try {
 			fstream = new FileWriter("testOutput/"+aiName+".txt");
@@ -72,10 +67,16 @@ public class CountNumberOfLosses extends TestCase
 			int aiMakes1stMoveLosses = 6561 - aiMakes1stMove(ai,out);
 			int aiMakes2ndMoveLosses = 59049 - aiMakes2ndMove(ai,out);
 			totalLosses = aiMakes1stMoveLosses + aiMakes2ndMoveLosses; 
-			out.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			try {
+				out.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}			
 		}
 		assertEquals(expectedNumberOfLosses,totalLosses);		
 	}
@@ -93,33 +94,44 @@ public class CountNumberOfLosses extends TestCase
 		int move[] = {0,0,0,0};
 		for(move[0]=1;move[0]<=9;move[0]++)
 		{
-			out.write("\n\n(" + move[0] + ")");
+			print(out,"\n\n(" + move[0] + ")");
 			for(move[1]=1;move[1]<=9;move[1]++)
 			{
-				out.write("\n[" + move[1] + "]");
+				print(out,"\n[" + move[1] + "]");
 				for(move[2]=1;move[2]<=9;move[2]++)
 				{
-					out.write("|");
+					print(out,"|");
 					for(move[3]=1;move[3]<=9;move[3]++)
 					{
 						totalCombinations++;
 						String outcome = play(move,ai);
 						if(outcome.equals("O has won! or It's a Tie! or Invalid Sequence."))
 						{
-							out.write(".");
+							print(out,".");
 							goodCombinations++;
 						}
 						else
 						{
-							out.write("X");
+							print(out,"X");
 							//System.out.println(m[0] + " " + m[1] + " " + m[2] + " " + m[3] + " " + m[4] + " " + outcome);
 						}
 					}	
 				}		
 			}
 		}
-		out.write("\n");
+		print(out,"\n");
 		return goodCombinations;
+	}
+	
+	public static void print(BufferedWriter out, String s)
+	{
+		System.out.print(s);
+		try {
+			out.write(s);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
 	}
 	
 	public int aiMakes2ndMove(Ai ai,BufferedWriter out) throws IOException
@@ -135,13 +147,13 @@ public class CountNumberOfLosses extends TestCase
 		int move[] = {0,0,0,0,0};
 		for(move[0]=1;move[0]<=9;move[0]++)
 		{
-			out.write("\n\n(" + move[0] + ")");
+			print(out,"\n\n(" + move[0] + ")");
 			for(move[1]=1;move[1]<=9;move[1]++)
 			{
-				out.write("\n[" + move[1] + "]");
+				print(out,"\n[" + move[1] + "]");
 				for(move[2]=1;move[2]<=9;move[2]++)
 				{
-					out.write("|");
+					print(out,"|");
 					for(move[3]=1;move[3]<=9;move[3]++)
 					{
 						int losses=0;
@@ -161,11 +173,11 @@ public class CountNumberOfLosses extends TestCase
 						}
 						if(losses==0)
 						{
-							out.write("~");
+							print(out,"~");
 						}
 						else
 						{
-							out.write(""+losses);							
+							print(out,""+losses);							
 						}
 						
 					}	

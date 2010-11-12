@@ -14,6 +14,26 @@ public class Board
 		this.lastPlayer = ' ';
 		this.winningPlayer = ' ';
 	}
+	public Board(char currentPlayer,char[] boardArray)
+	{
+		this.boardArray = boardArray.clone();
+		if(currentPlayer=='O')
+		{
+			lastPlayer='X';
+		}
+		else
+		{
+			lastPlayer='O';
+		}
+		
+		this.winningPlayer = ' ';
+	}
+	public Board(Board board2)
+	{
+		this.boardArray = board2.getBoardArray().clone();
+		this.lastPlayer = board2.lastPlayer;
+		this.winningPlayer = board2.winningPlayer;
+	}
 	
 	public void place(char player,int location) 
 	{
@@ -155,6 +175,22 @@ public class Board
 
 	public void setBoardArray(char[] boardArray) {
 		this.boardArray = boardArray;
+	}
+	
+	public char getLastPlayer()
+	{
+		return this.lastPlayer;
+	}
+	public char getCurrentPlayer()
+	{
+		if(this.lastPlayer=='O')
+		{
+			return 'X';
+		}
+		else
+		{
+			return 'O';
+		}
 	}
 
 
